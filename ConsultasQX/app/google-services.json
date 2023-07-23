@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "230641131446",
+    "project_id": "consultasqx-b21cb",
+    "storage_bucket": "consultasqx-b21cb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:230641131446:android:b7f28d255dc2ac821d2b17",
+        "android_client_info": {
+          "package_name": "com.example.consultasqx"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "230641131446-jh2740qns3lk90lrklnbkjnfnjvfer0n.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.consultasqx",
+            "certificate_hash": "4985ce1e6c7a29aad3d0f008ca821409a9d1ad93"
+          }
+        },
+        {
+          "client_id": "230641131446-l1jhinmmqbm874idtp041to4h987556l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCNgQ1bvQtbZ7e5e5e5jIKQc-3zooyQ9RU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "230641131446-l1jhinmmqbm874idtp041to4h987556l.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
