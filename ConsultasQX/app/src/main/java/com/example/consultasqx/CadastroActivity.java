@@ -332,7 +332,7 @@ public class CadastroActivity extends AppCompatActivity {
                                         usuario.setCoordX(coordX);
                                         usuario.setCoordY(coordY);
                                     }
-                                }else if(!escolha.isEmpty() && escolha.equals("Paciente")){
+                                }else if(!escolha.isEmpty() && (escolha.equals("Paciente") || escolha.equals("paciente"))){
                                     usuario = new Usuario();
                                     usuario.setNome(nome);
                                     usuario.setTelefone(phone);
@@ -549,6 +549,14 @@ public class CadastroActivity extends AppCompatActivity {
             doc.put("email", usuario.getEmail());
             doc.put("telefone", usuario.getTelefone());
             doc.put("senha", usuario.getSenha());
+            doc.put("papel", usuario.getPapel());
+            doc.put("crm", usuario.getCrm());
+            doc.put("especialidades", usuario.getEspecialidades());
+            doc.put("convenios", usuario.getConvenios());
+            doc.put("nome da clínica", usuario.getNomeDaClinica());
+            doc.put("telefone da clínica", usuario.getTeleDaClinica());
+            doc.put("coordenada Y", usuario.getCoordY());
+            doc.put("coordenada X", usuario.getCoordX());
 
             db.collection("Usuario").document(user.getUid()).set(doc)
                             .addOnCompleteListener(new OnCompleteListener<Void>() {

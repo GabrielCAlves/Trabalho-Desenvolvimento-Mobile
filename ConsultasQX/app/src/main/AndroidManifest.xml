@@ -70,7 +70,15 @@
                 android:value="" />
         </activity>
 
-
+        <activity
+            android:name=".DataActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.ConsultasQX.NoActionBar" >
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
         <activity
             android:name=".view.adapter.ConsultaAdapter"
             android:exported="false"

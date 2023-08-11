@@ -27,16 +27,22 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.consultasqx.databinding.ActivityUserProfileBinding;
+import com.example.consultasqx.model.Usuario;
+import com.example.consultasqx.view.Home;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
@@ -66,12 +72,18 @@ public class UserProfileActivity extends AppCompatActivity {
     private FirebaseFirestore db;
     private StorageReference storageReference;
 
-    private String key;
+    private String key, papel;
 
     SharedPreferences sp;
-    TextView campoNomeProfile;
-    TextInputEditText campoNome, campoCpf, campoEmail, campoTelefone, campoSenha;
+    TextView campoNomeProfile, crm, especialidades, convenios, localDaClinica, representaY, representaX;
+    TextView crmVis, especialidadesVis, conveniosVis;
+    TextInputEditText campoNome, campoCpf, campoEmail, campoTelefone, campoSenha, campoNomeCli, campoTeleCli;
+    TextInputLayout campoNomeCliVis, campoTeleCliVis;
+    LinearLayout crmLL, espLL, convLL, coordsLL;
+    EditText coordY, coordX;
 
+    String esps = "", convs = "";
+    Button buttonDateTime;
     ImageView photo;
     ActivityUserProfileBinding binding;
 
@@ -102,6 +114,39 @@ public class UserProfileActivity extends AppCompatActivity {
         campoTelefone = findViewById(R.id.editTextTelefone);
         campoSenha = findViewById(R.id.editTextSenha);
 
+        crm = findViewById(R.id.textViewCRM);
+        especialidades = findViewById(R.id.textViewEspecialidades);
+        convenios = findViewById(R.id.textViewConvenios);
+
+        campoNomeCli = findViewById(R.id.editTextNomeClinica);
+        campoTeleCli = findViewById(R.id.editTextTelefoneClinica);
+
+        localDaClinica = findViewById(R.id.textViewLocalizacaoDaClinicaUP);
+        representaY = findViewById(R.id.textViewYUP);
+        coordY = findViewById(R.id.editCoordenadaYUP);
+        representaX = findViewById(R.id.textViewXUP);
+        coordX = findViewById(R.id.editCoordenadaXUP);
+
+        crmVis = findViewById(R.id.textViewCRMVis);
+        especialidadesVis = findViewById(R.id.textViewEspecialidadesVis);
+        conveniosVis = findViewById(R.id.textViewConveniosVis);
+        campoNomeCliVis = findViewById(R.id.editText_nome_clin);
+        campoTeleCliVis = findViewById(R.id.editText_phone_clin);
+
+        crmLL = findViewById(R.id.linearLayoutCrmLL);
+        espLL = findViewById(R.id.linearLayoutEspecialidadesLL);
+        convLL = findViewById(R.id.linearLayoutConveniosLL);
+        coordsLL = findViewById(R.id.linearLayouCoordsLL);
+
+        buttonDateTime = findViewById(R.id.buttonTempo);
+
+        buttonDateTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                abrirDataTempo();
+            }
+        });
+
         getUserData();
 
     }
@@ -126,6 +171,7 @@ public class UserProfileActivity extends AppCompatActivity {
                                 email = documentSnapshot.getString("email");
                                 telefone = documentSnapshot.getString("telefone");
                                 senha = documentSnapshot.getString("senha");
+                                papel = documentSnapshot.getString("papel");
 
                                 campoNomeProfile.setText(documentSnapshot.getString("nome"));
                                 campoNome.setText(documentSnapshot.getString("nome"));
@@ -133,6 +179,54 @@ public class UserProfileActivity extends AppCompatActivity {
                                 campoEmail.setText(documentSnapshot.getString("email"));
                                 campoTelefone.setText(documentSnapshot.getString("telefone"));
                                 campoSenha.setText(documentSnapshot.getString("senha"));
+
+                                if(papel.equals("Paciente") || papel.equals("paciente")){
+                                    //crm.setVisibility(crm.GONE);
+                                    //especialidades.setVisibility(especialidades.GONE);
+                                    //convenios.setVisibility(convenios.GONE);
+
+                                    //campoNomeCli.setVisibility(campoNomeCli.GONE);
+                                    //campoTeleCli.setVisibility(campoTeleCli.GONE);
+
+                                    //coordY.setVisibility(coordY.GONE);
+                                    //coordX.setVisibility(coordX.GONE);
+
+                                    localDaClinica.setVisibility(convenios.GONE);
+                                    representaY.setVisibility(convenios.GONE);
+                                    representaX.setVisibility(convenios.GONE);
+
+                                    //crmVis.setVisibility(crmVis.GONE);
+                                    //especialidadesVis.setVisibility(especialidadesVis.GONE);
+                                    //conveniosVis.setVisibility(conveniosVis.GONE);
+                                    campoNomeCliVis.setVisibility(campoNomeCliVis.GONE);
+                                    campoTeleCliVis.setVisibility(campoTeleCliVis.GONE);
+
+                                    crmLL.setVisibility(crmLL.GONE);
+                                    espLL.setVisibility(espLL.GONE);
+                                    convLL.setVisibility(convLL.GONE);
+                                    coordsLL.setVisibility(coordsLL.GONE);
+
+                                    buttonDateTime.setVisibility(buttonDateTime.GONE);
+                                }else{
+                                    crm.setText(documentSnapshot.getString("crm"));
+
+                                    Usuario usuario = documentSnapshot.toObject(Usuario.class);
+                                    for(String espec: usuario.getEspecialidades()){
+                                        esps += espec+"; ";
+                                    }
+                                    for(String conv: usuario.getConvenios()){
+                                        convs += conv+"; ";
+                                    }
+                                    //especialidades.setText(documentSnapshot.getString("especialidades"));
+                                    //convenios.setText(documentSnapshot.getString("convenios"));
+                                    especialidades.setText(esps);
+                                    convenios.setText(convs);
+
+                                    campoNomeCli.setText(documentSnapshot.getString("nome da clínica"));
+                                    campoTeleCli.setText(documentSnapshot.getString("telefone da clínica"));
+                                    coordY.setText(documentSnapshot.getString("coordenada Y"));
+                                    coordX.setText(documentSnapshot.getString("coordenada X"));
+                                }
 
                                 try {
                                     getUserProfile();
@@ -451,8 +545,26 @@ public class UserProfileActivity extends AppCompatActivity {
     }
 
     public void delete(View v) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(UserProfileActivity.this);
 
-        db.collection("Usuario").document(key)
+        builder.setTitle("Tem certeza de que deseja excluir sua conta?");
+        builder.setCancelable(false);
+
+        builder.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int which) {
+                apagarConta();
+            }
+        }).setNegativeButton("Não", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int which) {
+                dialogInterface.dismiss();
+            }
+        });
+
+        builder.show();
+
+        /*db.collection("Usuario").document(key)
                         .delete()
                         .addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
@@ -492,8 +604,52 @@ public class UserProfileActivity extends AppCompatActivity {
                                         }
                                     });
                         }
-                    });
+                    });*/
 
+    }
+
+    private void apagarConta(){
+        db.collection("Usuario").document(key)
+                .delete()
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        Toast.makeText(UserProfileActivity.this, "Conta excluída com sucesso", Toast.LENGTH_SHORT).show();
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(UserProfileActivity.this, "Erro: "+e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+        FirebaseDatabase
+                .getInstance()
+                .getReference()
+                .child("Usuario")
+                .child(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid())
+                .setValue(null)
+                .addOnSuccessListener(new OnSuccessListener<Void>(){
+                    @Override
+                    public void onSuccess(Void unused) {
+                        FirebaseAuth.getInstance().getCurrentUser().delete()
+                                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        if(task.isSuccessful()){
+                                            Log.d(TAG, "Conta deletada com sucesso");
+
+                                            Intent intent= new Intent(UserProfileActivity.this, LoginActivity.class);
+                                            startActivity(intent);
+
+                                            finish();
+                                        }else{
+                                            Log.d(TAG, "Erro em deletar");
+                                        }
+                                    }
+                                });
+                    }
+                });
     }
 
     private boolean verEmail() {
@@ -609,5 +765,10 @@ public class UserProfileActivity extends AppCompatActivity {
 
     public void voltarUserProfile(View v) {
         finish();
+    }
+
+    public void abrirDataTempo() {
+        Intent intent = new Intent(this, DataActivity.class);
+        startActivity(intent);
     }
 }
