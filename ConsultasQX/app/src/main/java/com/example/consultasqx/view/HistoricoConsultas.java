@@ -93,8 +93,6 @@ public class HistoricoConsultas extends AppCompatActivity {
 
     }
 
-
-
     public void voltarHomePage(View v){
         finish();
     }

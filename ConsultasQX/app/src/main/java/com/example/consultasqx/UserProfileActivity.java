@@ -76,6 +76,9 @@ public class UserProfileActivity extends AppCompatActivity {
 
     SharedPreferences sp;
     TextView campoNomeProfile, crm, especialidades, convenios, localDaClinica, representaY, representaX;
+
+    ArrayList<String> especialidade;
+    ArrayList<String> convenio;
     TextView crmVis, especialidadesVis, conveniosVis;
     TextInputEditText campoNome, campoCpf, campoEmail, campoTelefone, campoSenha, campoNomeCli, campoTeleCli;
     TextInputLayout campoNomeCliVis, campoTeleCliVis;
@@ -139,6 +142,9 @@ public class UserProfileActivity extends AppCompatActivity {
         coordsLL = findViewById(R.id.linearLayouCoordsLL);
 
         buttonDateTime = findViewById(R.id.buttonTempo);
+
+        especialidade = new ArrayList<>();
+        convenio = new ArrayList<>();
 
         buttonDateTime.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -213,9 +219,11 @@ public class UserProfileActivity extends AppCompatActivity {
                                     Usuario usuario = documentSnapshot.toObject(Usuario.class);
                                     for(String espec: usuario.getEspecialidades()){
                                         esps += espec+"; ";
+                                        especialidade.add(espec);
                                     }
                                     for(String conv: usuario.getConvenios()){
                                         convs += conv+"; ";
+                                        convenio.add(conv);
                                     }
                                     //especialidades.setText(documentSnapshot.getString("especialidades"));
                                     //convenios.setText(documentSnapshot.getString("convenios"));
@@ -769,6 +777,17 @@ public class UserProfileActivity extends AppCompatActivity {
 
     public void abrirDataTempo() {
         Intent intent = new Intent(this, DataActivity.class);
+
+        intent.putStringArrayListExtra("convenios", convenio);
+        intent.putExtra("cpf", cpf);
+        intent.putExtra("crm", crm.getText());
+        intent.putStringArrayListExtra("especialidades", especialidade);
+        intent.putExtra("id", key);
+        intent.putExtra("latitude", coordY.getText().toString());
+        intent.putExtra("longitude", coordX.getText().toString());
+        intent.putExtra("nome", nome);
+        intent.putExtra("nome_clinica", campoNomeCli.getText().toString());
+
         startActivity(intent);
     }
 }

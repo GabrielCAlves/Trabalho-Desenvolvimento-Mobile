@@ -178,6 +178,7 @@
         android:layout_gravity="center"
         android:layout_marginTop="5dp"
         android:backgroundTint="#FF0000"
+        android:onClick="delete"
         android:text="Me remover do banco de dados"
         android:textColor="#fff" />
 
