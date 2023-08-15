@@ -15,4 +15,11 @@
         <item name="colorOnPrimary">@color/white</item>
         <!-- Outros atributos que você deseja personalizar -->
     </style>
+
+    <style name="CustomSearchViewStyle" parent="Widget.AppCompat.SearchView">
+        <item name="android:editTextColor">@color/black</item>
+        <item name="android:textColorHint">@color/dark_gray</item> <!-- Defina a cor do hint -->
+        <!-- Outros atributos do estilo da SearchView, se necessário -->
+    </style>
+
 </resources>

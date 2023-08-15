@@ -94,10 +94,10 @@ public class AgendarConsulta extends AppCompatActivity {
 
 
     public void initAdapters(){
-        adapterEspecialidades = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, especialidades);
-        adapterHorarios = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, horarios);
-        adapterConvenios = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, convenios);
-        adapterDatas = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, datas);
+        adapterEspecialidades = new ArrayAdapter<>(this, /*android.R.layout.simple_spinner_dropdown_item*/R.layout.spinner_item, especialidades);
+        adapterHorarios = new ArrayAdapter<>(this, /*android.R.layout.simple_spinner_dropdown_item*/R.layout.spinner_item, horarios);
+        adapterConvenios = new ArrayAdapter<>(this, /*android.R.layout.simple_spinner_dropdown_item*/R.layout.spinner_item, convenios);
+        adapterDatas = new ArrayAdapter<>(this, /*android.R.layout.simple_spinner_dropdown_item*/R.layout.spinner_item, datas);
     }
 
     public void initSpinners(){
@@ -118,6 +118,8 @@ public class AgendarConsulta extends AppCompatActivity {
 
         //inicializando spinner de datas
         spinnerDatas.setAdapter(adapterDatas);
+
+
 
     }
 

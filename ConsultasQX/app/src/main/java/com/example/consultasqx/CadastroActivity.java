@@ -114,12 +114,8 @@ public class CadastroActivity extends AppCompatActivity {
 
         autoCompleteTextViewPapel.setAdapter(adapterItemsPapel);
 
-        autoCompleteTextViewPapel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                textInputLayoutPapel.setHintEnabled(false);
-            }
-        });
+        textInputLayoutPapel.setHintEnabled(false);
+        
         autoCompleteTextViewPapel.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {

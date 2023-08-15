@@ -149,12 +149,11 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
             android:gravity="center_vertical"
-            android:hint="Papel"
             android:minHeight="?android:attr/listPreferredItemHeightSmall"
             android:paddingStart="?android:attr/listPreferredItemPaddingStart"
             android:paddingEnd="?android:attr/listPreferredItemPaddingEnd"
             android:textAppearance="?android:attr/textAppearanceListItemSmall"
-            android:textColor="@color/white"
+            android:hint="Papel"
             android:textColorHint="#FFFFFF">
 
             <AutoCompleteTextView
@@ -162,7 +161,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@drawable/bck_texto"
-                android:inputType="none" />
+                android:inputType="none"
+                android:textColorHint="#FFFFFF"
+                android:textColor="@color/white"/>
 
         </com.google.android.material.textfield.TextInputLayout>
 

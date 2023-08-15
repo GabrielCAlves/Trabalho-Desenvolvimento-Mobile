@@ -50,6 +50,9 @@ public class SearchMedicoActivity extends AppCompatActivity {
 
             @Override
             public boolean onQueryTextChange(String newText) {
+                if(newText.length() == 0){
+                    return false;
+                }
                 adapter.getFilter().filter(newText);
                 return true;
             }
